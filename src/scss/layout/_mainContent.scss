@@ -1,34 +1,82 @@
 @use '../abstracts/abstractsIndex' as *;
+@use 'sass:math' as *;
 
-// body {
-//   display: flex;
-//   justify-content: center;
-// }
-
-.main {
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $red;
   background-image: url('/src/images/bg-intro-mobile.png');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   background-position: center;
+  @include mediaMin($medium) {
+    background-image: url('/src/images/bg-intro-desktop.png');
+  }
+  // @include mediaMin($small) {
+  //   height: 100vh;
+  // }
+}
+
+.main {
+  // background-color: $red;
+  // background-image: url('/src/images/bg-intro-mobile.png');
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // background-position: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 1.5em;
   padding-bottom: 3em;
   font-family: $priFont;
   // max-width: $mobile;
+
+  @include mediaMin($medium) {
+    // padding: 1.5em 6.2em;
+    padding: 1.5em 3.1em;
+    // background-image: url('/src/images/bg-intro-desktop.png');
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-areas:
+      'intro pricing'
+      'intro form';
+  }
 }
 
 .intro {
   color: white;
   text-align: center;
   padding: 3.4em 0.3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include mediaMin($small) {
+    max-width: 29rem;
+  }
+
+  @include mediaMin($medium) {
+    grid-area: intro;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
 
   &__heading {
-    font-size: 1.7rem;
+    font-size: 1.71rem;
     padding: 0.5em;
     font-weight: 700;
     line-height: 1.4;
+    // @include mediaMin($small) {
+    //   font-size: 2rem;
+    // }
+    @include mediaMin($medium) {
+      text-align: left;
+      padding: 0.5em 0;
+      font-size: 3.1rem;
+    }
   }
   &__description {
     padding: 0.5em 0;
@@ -42,6 +90,14 @@
   border-radius: 0.5em;
   position: relative;
   box-shadow: 0 0.55em 0px 0px #da6468;
+  // max-width: 29.5625rem;
+  max-width: 27.9rem;
+
+  @include mediaMin($medium) {
+    grid-area: pricing;
+    transform: translateY(4em);
+    width: 33.8125rem;
+  }
 
   &__description {
     transform: translateY(0.1em);
@@ -62,6 +118,12 @@
   background: white;
   border-radius: 0.7em;
   box-shadow: 0 0.55em 0px 0px #da6468;
+  max-width: 27.9rem;
+
+  @include mediaMin($medium) {
+    grid-area: form;
+    width: 33.8125rem;
+  }
 
   &__input-wrapper {
     margin: 1.6em 0;
@@ -104,6 +166,9 @@
     padding: 0em 3em;
     font-size: 0.75rem;
     padding-bottom: 1.5em;
+    @include mediaMin($medium) {
+      padding-bottom: 3em;
+    }
   }
 
   &__terms-services {
