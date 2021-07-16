@@ -1,13 +1,7 @@
 @use '../abstracts/abstractsIndex' as *;
 
-html {
-  background-color: green;
-  margin: 0 auto;
-}
-
 body {
   background-color: $red;
-  max-width: $extraLarge;
   background-image: url('/src/images/bg-intro-mobile.png');
   background-repeat: no-repeat;
   background-size: contain;
@@ -22,8 +16,6 @@ body {
 }
 
 .main {
-  background-color: $red;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,9 +23,6 @@ body {
   padding: 1.5em;
   padding-bottom: 3em;
   font-family: $priFont;
-
-  // max-width: $mobile;
-
   @include mediaMin($extraMedium) {
     padding: 1.5em 3.1em;
     flex-direction: row;
@@ -111,7 +100,6 @@ body {
   border-radius: 0.5em;
   position: relative;
   box-shadow: 0 0.55em 0px 0px #da6468;
-  // max-width: 29.5625rem;
   max-width: 27.9rem;
 
   @include mediaMin($extraMedium) {
@@ -129,7 +117,6 @@ body {
     line-height: 1.7;
     color: white;
     font-weight: 400;
-
     & span {
       font-weight: 700;
     }
@@ -210,7 +197,6 @@ body {
     padding: 0em 3em;
     font-size: 0.7rem;
     padding-bottom: 1.5em;
-    background-color: hotpink;
     @include mediaMin($extraLarge) {
       padding-bottom: 1.9em;
       transform: translateY(-2em);
@@ -219,7 +205,6 @@ body {
 
   &__terms-services {
     text-align: center;
-    background-color: green;
     color: #a9a7b4;
     & span {
       color: $red;
