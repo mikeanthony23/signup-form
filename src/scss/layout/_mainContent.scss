@@ -1,26 +1,29 @@
 @use '../abstracts/abstractsIndex' as *;
-@use 'sass:math' as *;
+
+html {
+  background-color: green;
+  margin: 0 auto;
+}
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: $red;
+  max-width: $extraLarge;
   background-image: url('/src/images/bg-intro-mobile.png');
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: contain;
   background-position: center;
   @include mediaMin($extraMedium) {
     background-image: url('/src/images/bg-intro-desktop.png');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 }
 
 .main {
-  // background-color: $red;
-  // background-image: url('/src/images/bg-intro-mobile.png');
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  // background-position: center;
+  background-color: $red;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,18 +31,35 @@ body {
   padding: 1.5em;
   padding-bottom: 3em;
   font-family: $priFont;
+
   // max-width: $mobile;
 
   @include mediaMin($extraMedium) {
-    // padding: 1.5em 6.2em;
     padding: 1.5em 3.1em;
-    // background-image: url('/src/images/bg-intro-desktop.png');
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-areas:
-      'intro pricing'
-      'intro form';
+    flex-direction: row;
+    height: 100%;
+
+    & > * {
+      margin: 0 1.5em;
+      flex: 1;
+    }
+  }
+  @include mediaMin($extraMedium) {
+    margin: 5.7em 0;
+    padding: 1.5em 0;
+    & > * {
+      margin: 0 1.5em;
+    }
+  }
+
+  &__form-wrapper {
+    @include mediaMin($extraMedium) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(-0.7em);
+    }
   }
 }
 
@@ -52,13 +72,15 @@ body {
   align-items: center;
   @include mediaMin($small) {
     max-width: 29rem;
+    padding: 3.4em 0.9em;
   }
 
   @include mediaMin($extraMedium) {
-    grid-area: intro;
     text-align: left;
     display: flex;
     flex-direction: column;
+    max-width: 34rem;
+    transform: translateY(-1.25em);
   }
 
   &__heading {
@@ -70,12 +92,16 @@ body {
       text-align: left;
       padding: 0.5em 0;
       font-size: 3.1rem;
+      line-height: 1.13;
     }
   }
   &__description {
     line-height: 1.5;
     padding: 0.5em 0;
     color: #fff5f3;
+    @include mediaMin($extraMedium) {
+      padding: 0.1em 0;
+    }
   }
 }
 .pricing {
@@ -89,9 +115,11 @@ body {
   max-width: 27.9rem;
 
   @include mediaMin($extraMedium) {
-    grid-area: pricing;
     transform: translateY(0em);
     width: 33.8125rem;
+  }
+  @include mediaMin($extraLarge) {
+    max-width: 43rem;
   }
 
   &__description {
@@ -114,32 +142,50 @@ body {
   border-radius: 0.7em;
   box-shadow: 0 0.55em 0px 0px #da6468;
   max-width: 27.9rem;
-
+  padding-top: 1px;
   @include mediaMin($extraMedium) {
-    grid-area: form;
     width: 33.8125rem;
+  }
+  @include mediaMin($extraLarge) {
+    max-width: 43rem;
+    padding-top: 0.5em;
   }
 
   &__input-wrapper {
     margin: 1.6em 0;
+    @include mediaMin($medium) {
+      transform: translateY(-3px);
+    }
   }
 
   &__item {
     margin: 1em;
     display: flex;
     justify-content: center;
+    @include mediaMin($extraLarge) {
+      margin: 0;
+      padding: 0.65em;
+    }
   }
 
   &__input {
     margin: 0 0.6em;
     width: 100%;
-    padding: 1.45em;
+    padding: 0.9em;
     border-radius: 0.4em;
     border: solid 1px #dedede;
+    font-size: 1rem;
+    font-family: $priFont;
+    font-weight: 600;
+    @include mediaMin($extraLarge) {
+      width: 88.7%;
+      padding: 0.9em 2.1em;
+    }
     &::placeholder {
       font-family: $priFont;
       color: #7b7b7d;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
     &--btn {
       cursor: pointer;
@@ -153,21 +199,27 @@ body {
       padding: 0.9em;
       border: none;
       box-shadow: 0px 0.2em 0px 0px #49ae84;
+      @include mediaMin($extraLarge) {
+        margin: 0;
+      }
     }
   }
 
   &__footer {
     transform: translateY(-0.5em);
     padding: 0em 3em;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     padding-bottom: 1.5em;
-    @include mediaMin($extraMedium) {
-      padding-bottom: 3em;
+    background-color: hotpink;
+    @include mediaMin($extraLarge) {
+      padding-bottom: 1.9em;
+      transform: translateY(-2em);
     }
   }
 
   &__terms-services {
     text-align: center;
+    background-color: green;
     color: #a9a7b4;
     & span {
       color: $red;
