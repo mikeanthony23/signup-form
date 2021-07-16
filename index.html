@@ -39,19 +39,26 @@
 
         <div class="form__input-wrapper">
           <div class="form__item form__item--first-name-wrapper">
-            <input class="form__input" type="text" name="first-name" id="first-name" placeholder="First Name" required>
+            <!-- class to add on error -->
+            <!-- form__input--invalid -->
+            <input class="form__input " type="text" name="first-name" id="first-name" placeholder="First Name" required>
+            <!-- <p class="form__item--error" data-label="First Name">First Name cannot be empty</p> -->
           </div>
 
           <div class="form__item form__item--last-name-wrapper">
             <input class="form__input" type="text" name="last-name" id="last-name" placeholder="Last Name" required>
+            <!-- <p class="form__item--error" data-label="Last Name">Last Name cannot be empty</p> -->
           </div>
 
           <div class="form__item form__item--email-wrapper">
             <input class="form__input" type="email" name="email" id="email" placeholder="Email Address" required>
+            <!-- <p class="form__item--error" data-label="Email">Looks like this is not an email</p> -->
           </div>
 
           <div class="form__item form__item--password-wrapper">
-            <input class="form__input" type="password" name="password" id="password" placeholder="Password" required>
+            <input class="form__input" type="password" name="password" id="password" placeholder="Password" required
+              min="0">
+            <!-- <p class="form__item--error" data-label="Password">Password cannot be empty</p> -->
           </div>
 
           <div class="form__item form__item--submit-wrapper">
