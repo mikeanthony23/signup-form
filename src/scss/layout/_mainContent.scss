@@ -160,6 +160,9 @@ body {
       color: red;
       font-size: 0.8rem;
       font-style: italic;
+    }
+
+    &--error-msg {
       position: relative;
       &::after {
         content: url('/src/images/icon-error.svg');
@@ -190,6 +193,9 @@ body {
     &--invalid {
       border-color: red;
       color: red;
+      // &::placeholder {
+      //   display: none;
+      // }
     }
     @include mediaMin($extraLarge) {
       width: 88.7%;
@@ -238,4 +244,12 @@ body {
       font-weight: 700;
     }
   }
+}
+
+.visible {
+  display: flex;
+}
+
+.hidden {
+  display: none;
 }

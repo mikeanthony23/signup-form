@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script defer src="/src/script.js"></script>
 
   <title>SignUp Form</title>
 </head>
@@ -41,24 +42,31 @@
           <div class="form__item form__item--first-name-wrapper">
             <!-- class to add on error -->
             <!-- form__input--invalid -->
-            <input class="form__input " type="text" name="first-name" id="first-name" placeholder="First Name" required>
-            <!-- <p class="form__item--error" data-label="First Name">First Name cannot be empty</p> -->
+            <input class="form__input form__input-field form__input-field--firstname" type="text" name="first-name"
+              id="first-name" placeholder="First Name" data-label="first-name">
+            <div class="form__item--error"></div>
+            <!-- <p class="form__item--error hidden">First Name cannot be empty</p> -->
           </div>
 
           <div class="form__item form__item--last-name-wrapper">
-            <input class="form__input" type="text" name="last-name" id="last-name" placeholder="Last Name" required>
-            <!-- <p class="form__item--error" data-label="Last Name">Last Name cannot be empty</p> -->
+            <input class="form__input form__input-field form__input-field--lastname" type="text" name="last-name"
+              id="last-name" placeholder="Last Name" data-label="last-name">
+            <div class="form__item--error"></div>
+            <!-- <p class="form__item--error hidden" data-label="Last Name">Last Name cannot be empty</p> -->
           </div>
 
           <div class="form__item form__item--email-wrapper">
-            <input class="form__input" type="email" name="email" id="email" placeholder="Email Address" required>
-            <!-- <p class="form__item--error" data-label="Email">Looks like this is not an email</p> -->
+            <input class="form__input form__input-field form__input-field--email" type="email" name="email" id="email"
+              placeholder="Email Address" data-label="email">
+            <div class="form__item--error"></div>
+            <!-- <p class="form__item--error hidden">Looks like this is not an email</p> -->
           </div>
 
           <div class="form__item form__item--password-wrapper">
-            <input class="form__input" type="password" name="password" id="password" placeholder="Password" required
-              min="0">
-            <!-- <p class="form__item--error" data-label="Password">Password cannot be empty</p> -->
+            <input class="form__input form__input-field form__input-field--password" type="password" name="password"
+              id="password" placeholder="Password" data-label="password">
+            <div class="form__item--error"></div>
+            <!-- <p class="form__item--error hidden">Password cannot be empty</p> -->
           </div>
 
           <div class="form__item form__item--submit-wrapper">
