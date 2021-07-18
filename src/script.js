@@ -1,59 +1,82 @@
 'use strict';
-const errWrapper = document.querySelectorAll('.form__item--error');
+const form = document.querySelector('.form');
 const formItem = document.querySelectorAll('.form-item');
 const inputEl = document.querySelectorAll('.form__input-field');
 const submitBtn = document.querySelector('.form__input--btn');
 
-const renderErrorMsg = function (propName) {
-  if (propName == 'Email')
-    return `<p class="form__item--error-msg">Looks like this is not an ${propName}</p>`;
-  return `<p class="form__item--error-msg">${propName} cannot be empty</p>`;
-};
-
 const validateEmail = function (email) {
   const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email.toLowerCase());
 };
-// console.log(validateEmail(`tasdsd@gmail.com`));
 
-const validateInputs = function () {
-  Array.from(inputEl).forEach((el, i) => {
-    const clear = function () {
-      errWrapper[i].innerHTML = '';
-    };
-    const render = function (propName) {
-      errWrapper[i].insertAdjacentHTML('afterbegin', renderErrorMsg(propName));
-    };
+//Last Name cannot be empty
 
-    if (el.dataset.label === 'first-name' && el.value === '') {
-      clear();
-      render('First Name');
-    }
-    if (el.dataset.label === 'last-name' && el.value === '') {
-      clear();
-      render('Last Name');
-    }
-    if (el.dataset.label === 'password' && el.value === '') {
-      clear();
-      render('Password');
-    }
-    if (el.dataset.label === 'email' && validateEmail(el.value) === true) {
-      clear();
-      render('Email');
-    }
-
-    if (el.value !== '') {
-      clear();
-    }
-  });
+const renderError = function (el, msg) {
+  el.classList.add('form__input--invalid');
+  el.classList.remove('form__input--valid');
+  const markup = `<p class="form__item--error form__item--error-msg">${msg}</p>`;
+  const errContainer = el.nextElementSibling;
+  console.log(errContainer);
+  errContainer.innerHTML = markup;
 };
 
-submitBtn.addEventListener('click', function (e) {
-  e.preventDefault(e);
-  const btn = e.target.closest('.form__input--btn');
-  if (!btn) return;
-  validateInputs();
+const renderSuccess = function (el, msg) {
+  el.classList.remove('form__input--invalid');
+  el.classList.add('form__input--valid');
+  const markup = `<p class="form__item--success form__item--success-msg">${msg}</p>`;
+  const errContainer = el.nextElementSibling;
+  errContainer.innerHTML = '';
+
+  errContainer.innerHTML = markup;
+};
+
+const inputValidation = function () {
+  const firstName = document.querySelector('.form__input-field--firstname');
+  const lastName = document.querySelector('.form__input-field--lastname');
+  const email = document.querySelector('.form__input-field--email');
+  const password = document.querySelector('.form__input-field--password');
+
+  // first name validation
+  if (firstName.value === '') {
+    renderError(firstName, 'First Name cannot be empty');
+  } else {
+    renderSuccess(firstName, `${firstName.value} is valid`);
+  }
+
+  // last name validation
+  if (lastName.value === '') {
+    renderError(lastName, 'Last Name cannot be empty');
+  } else {
+    renderSuccess(lastName, `${lastName.value} is valid`);
+  }
+
+  // email validation
+  if (!validateEmail(email.value)) {
+    renderError(email, 'Looks like this is not an email');
+  }
+  if (validateEmail(email.value)) {
+    renderSuccess(email, `Email is valid`);
+  }
+  if (email.value === '') {
+    renderError(email, 'Email cannot be empty');
+  }
+
+  // password validation
+  if (password.value.length <= 6) {
+    renderError(password, 'Password must be 6 characters long or above');
+  }
+  if (password.value === '') {
+    renderError(password, 'Password cannot be empty');
+  }
+  if (password.value.length >= 6 && password.value !== '') {
+    renderSuccess(password, `Password is valid`);
+  }
+};
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  inputValidation();
 });
 
 inputEl.forEach((el) => {
