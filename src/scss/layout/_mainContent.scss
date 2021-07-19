@@ -154,20 +154,23 @@ body {
     justify-content: center;
     flex-direction: column;
 
-    &--error {
+    &--status {
       margin-top: 0.6em;
       align-self: flex-end;
-      color: red;
       font-size: 0.8rem;
       font-style: italic;
     }
     &--error-msg {
       position: relative;
+      color: red;
       &::after {
         content: url('/src/images/icon-error.svg');
         position: absolute;
-        top: -4.4em;
+        top: -3.9em;
         right: 1.3em;
+        @include mediaMin($extraMedium) {
+          right: 2.1em;
+        }
       }
       @include mediaMin($extraLarge) {
         transform: translateX(-2.5em);
@@ -187,9 +190,12 @@ body {
       &::after {
         content: url('/src/images/icon-valid.png');
         position: absolute;
-        top: -5.35em;
+        top: -5.42em;
         right: 0.3em;
         transform: scale(0.65);
+        @include mediaMin($extraMedium) {
+          right: 1.1em;
+        }
       }
       @include mediaMin($extraLarge) {
         transform: translateX(-2.5em);
@@ -207,9 +213,15 @@ body {
     font-family: $priFont;
     font-weight: 600;
     color: $darkBlue;
-    // &:invalid {
-    //   border-color: red;
-    // }
+
+    &:invalid {
+      color: red;
+    }
+    &:focus {
+      color: $darkBlue;
+      border-color: #dedede;
+    }
+
     &--invalid {
       border: solid 0.13em red;
       color: red;
@@ -217,7 +229,6 @@ body {
     &--valid {
       border: solid 0.13em $green;
       color: $darkBlue;
-      position: relative;
     }
 
     @include mediaMin($extraLarge) {
@@ -238,7 +249,7 @@ body {
       font-family: $priFont;
       font-weight: 500;
       font-size: $priFontSize;
-      color: #e6fff9;
+      color: #e6fff9 !important;
       padding: 0.9em;
       border: none;
       box-shadow: 0px 0.2em 0px 0px hsl(155, 41%, 48%);
@@ -267,12 +278,4 @@ body {
       font-weight: 700;
     }
   }
-}
-
-.visible {
-  display: flex;
-}
-
-.hidden {
-  display: none;
 }
