@@ -224,6 +224,9 @@ body {
     font-family: $priFont;
     font-weight: 600;
     color: $darkBlue;
+    &[type='text'] {
+      text-transform: capitalize;
+    }
 
     &:invalid {
       color: red;
@@ -303,37 +306,32 @@ body {
   text-align: center;
   background: hsla(0, 0%, 100%, 0.836);
   background: transparent;
-}
-
-.form-overlay-msg {
-  font-family: $priFont;
-  font-size: 1.2rem;
-  color: $darkBlue;
-  font-weight: 600;
-  padding: 2.5em 2em;
-  background: rgb(255, 255, 255);
-  box-shadow: 0 0.2em 0.45em 0em rgb(107, 99, 99);
-  border-radius: 0.5em;
-  margin: 0.5em;
-  position: relative;
-
-  &::after {
-    color: slateblue;
-    content: url('/src/images/icon-close.svg');
-    position: absolute;
-    top: 0.7em;
-    right: 0.7em;
-    cursor: pointer;
-    transform: scale(0.7);
-
-    @include mediaMin($medium) {
-      top: 0.9em;
-      right: 0.85em;
-    }
+  &__details {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  @include mediaMin($medium) {
-    padding: 4em 2em;
-    font-size: 1.5rem;
+
+  &__msg {
+    font-family: $priFont;
+    font-size: 1.2rem;
+    color: $darkBlue;
+    font-weight: 600;
+    padding: 2.5em 2em;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 0.2em 0.45em 0em rgb(107, 99, 99);
+    border-radius: 0.5em;
+    margin: 0.5em;
+  }
+  &__close-btn {
+    position: absolute;
+    right: 1.5em;
+    top: 2em;
+    transform: scale(0.7);
+    background: transparent;
+    border: none;
+    cursor: pointer;
   }
 }
 
