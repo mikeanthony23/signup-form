@@ -84,14 +84,16 @@ const emailValidation = function () {
 }
 
 const passwordValidation = function () {
+  const maxPasswordLength = 18
+  const minPasswordLength = 6
   if (password.value.trim() === '') {
     renderError(password, 'Password cannot be empty')
     return false
   }
   if (
-    password.value.length >= 6 &&
+    password.value.length >= minPasswordLength &&
     password.value !== '' &&
-    password.value.length <= 18 &&
+    password.value.length <= maxPasswordLength &&
     isPassword(password.value)
   ) {
     renderSuccess(password, `Password is valid`)
@@ -99,8 +101,8 @@ const passwordValidation = function () {
   }
 
   if (
-    password.value.length <= 6 ||
-    password.value.length > 18 ||
+    password.value.length <= minPasswordLength ||
+    password.value.length > maxPasswordLength ||
     !isPassword(password.value)
   ) {
     renderError(
@@ -112,20 +114,18 @@ const passwordValidation = function () {
 }
 
 const eventHandler = function (target, handler) {
-  target.addEventListener('change', function () {
+  target.addEventListener('input', function () {
     handler()
   })
 }
+eventHandler(firstName, firstNameValidation)
 
-const validateAll = function () {
-  eventHandler(firstName, firstNameValidation)
+eventHandler(lastName, lastNameValidation)
 
-  eventHandler(lastName, lastNameValidation)
+eventHandler(email, emailValidation)
 
-  eventHandler(email, emailValidation)
+eventHandler(password, passwordValidation)
 
-  eventHandler(password, passwordValidation)
-}
 const isAllValidated = function () {
   if (
     firstNameValidation() &&
@@ -149,14 +149,13 @@ const createMarkup = function () {
 }
 
 const displaySuccessOverlay = function () {
+  const delay = 1
   renderSpinner()
-  setTimeout(createMarkup, 1000)
+  setTimeout(createMarkup, 1000 * delay)
 }
-validateAll()
 
 form.addEventListener('submit', function (e) {
   e.preventDefault()
-  // isAllValidated()
   if (!isAllValidated()) {
     firstNameValidation()
     lastNameValidation()
