@@ -4,8 +4,9 @@ body {
   background-color: $red;
   background-image: url('/src/images/bg-intro-mobile.png');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: auto;
   background-position: center;
+  background-attachment: fixed;
 
   @include mediaMin($extraMedium) {
     background-image: url('/src/images/bg-intro-desktop.png');
@@ -27,7 +28,6 @@ body {
   @include mediaMin($extraMedium) {
     padding: 1.5em 3.1em;
     flex-direction: row;
-    height: 100%;
 
     & > * {
       margin: 0 1.5em;
@@ -287,7 +287,7 @@ body {
   &__terms-services {
     text-align: center;
     color: #a9a7b4;
-    & span {
+    & a {
       color: $red;
       font-weight: 700;
     }
@@ -337,4 +337,51 @@ body {
 
 .hidden {
   display: none;
+}
+
+// loading spinner
+
+.spinner-container {
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+.loader {
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid $blue;
+  border-right: 1.1em solid $green;
+  border-bottom: 1.1em solid $blue;
+  border-left: 1.1em solid $green;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

@@ -10,13 +10,13 @@ const email = document.querySelector('.form__input-field--email')
 const password = document.querySelector('.form__input-field--password')
 const formInput = document.querySelectorAll('.form__input')
 
-const validateEmail = function (email) {
+const isEmail = function (email) {
   const re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(email.toLowerCase())
 }
 
-const validatePassword = function (password) {
+const isPassword = function (password) {
   // validates 6-12 characters, special characaters (!@#$%^&*) and numbers only
   const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,18}$/
   return re.test(password)
@@ -41,6 +41,7 @@ const renderSuccess = function (el, msg) {
 
 const capitalize = function (str) {
   return str
+    .trim()
     .split(' ')
     .map(str => str[0].toUpperCase() + str.slice(1))
     .join(' ')
@@ -72,11 +73,11 @@ const emailValidation = function () {
     renderError(email, 'Email cannot be empty')
     return false
   }
-  if (!validateEmail(email.value.trim())) {
+  if (!isEmail(email.value.trim())) {
     renderError(email, 'Looks like this is not an email')
     return false
   }
-  if (validateEmail(email.value)) {
+  if (isEmail(email.value)) {
     renderSuccess(email, `${email.value} is valid`)
     return true
   }
@@ -91,7 +92,7 @@ const passwordValidation = function () {
     password.value.length >= 6 &&
     password.value !== '' &&
     password.value.length <= 18 &&
-    validatePassword(password.value)
+    isPassword(password.value)
   ) {
     renderSuccess(password, `Password is valid`)
     return true
@@ -100,24 +101,32 @@ const passwordValidation = function () {
   if (
     password.value.length <= 6 ||
     password.value.length > 18 ||
-    !validatePassword(password.value)
+    !isPassword(password.value)
   ) {
     renderError(
       password,
-      `Password too weak! It must contain 6-12 characters long, a number and a special character(!@#$%^&*).`
+      `Password too weak! It must contain 6-18 characters long, a number and a special character(!@#$%^&*).`
     )
     return false
   }
 }
-const inputValidation = function () {
-  firstNameValidation()
 
-  lastNameValidation()
+const eventHandler = function (target, handler) {
+  target.addEventListener('change', function () {
+    handler()
+  })
+}
 
-  emailValidation()
+const validateAll = function () {
+  eventHandler(firstName, firstNameValidation)
 
-  passwordValidation()
+  eventHandler(lastName, lastNameValidation)
 
+  eventHandler(email, emailValidation)
+
+  eventHandler(password, passwordValidation)
+}
+const isAllValidated = function () {
   if (
     firstNameValidation() &&
     lastNameValidation() &&
@@ -129,6 +138,7 @@ const inputValidation = function () {
 }
 
 const createMarkup = function () {
+  formSubmitOverlay.innerHTML = ''
   const markup = `
     <div class="form-overlay__details">
       <p class="form-overlay__msg">Registration Submitted Please Check your Email.</p>
@@ -139,15 +149,23 @@ const createMarkup = function () {
 }
 
 const displaySuccessOverlay = function () {
+  renderSpinner()
   setTimeout(createMarkup, 1000)
 }
+validateAll()
 
 form.addEventListener('submit', function (e) {
   e.preventDefault()
-  inputValidation()
-  if (!inputValidation()) return
-  formSubmitOverlay.classList.toggle('hidden')
-  displaySuccessOverlay()
+  // isAllValidated()
+  if (!isAllValidated()) {
+    firstNameValidation()
+    lastNameValidation()
+    emailValidation()
+    passwordValidation()
+  } else {
+    formSubmitOverlay.classList.remove('hidden')
+    displaySuccessOverlay()
+  }
 })
 
 // reset all styles in the form
@@ -166,9 +184,20 @@ const clear = function () {
   })
 }
 
+window.addEventListener('load', clear())
+
 formSubmitOverlay.addEventListener('click', function (e) {
   const btn = e.target.closest('.form-overlay__close-btn')
   if (!btn) return
   clear()
-  formSubmitOverlay.classList.toggle('hidden')
+  formSubmitOverlay.classList.add('hidden')
 })
+
+const renderSpinner = function () {
+  const spinner = `
+    <div class="spinner-container">
+      <div class="loader"></div>
+    </div>`
+  formSubmitOverlay.innerHTML = ''
+  formSubmitOverlay.innerHTML = spinner
+}
