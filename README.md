@@ -16,5 +16,5 @@
 
   
 
-Based on IP address tracker challenge on [Frontend Mentor](https://www.frontendmentor.io/).
+Based on sign-up form challenge on [Frontend Mentor](https://www.frontendmentor.io/).
 
